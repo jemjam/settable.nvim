@@ -1,13 +1,6 @@
 --- neoconfig.nvim — minimal implementation (Phase 2)
 --- Implements core helpers to create keymaps, commands, autocmds, and funcs
 
----@class NeoConfig
----@field keymaps table[]|fun()
----@field commands table[]|fun()
----@field funcs table[]|fun()
----@field autocmds table[]|fun()
----@field defaults table?
-
 local M = {}
 
 -- Notify when the plugin is loaded (non-fatal)

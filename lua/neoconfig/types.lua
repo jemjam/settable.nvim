@@ -24,10 +24,10 @@
 ---@field opts table|nil
 
 ---@class NeoConfig
----@field keymaps NCKeymap[]|fun():NCKeymap[]
----@field commands NCCommand[]|fun():NCCommand[]
----@field funcs NCFunc[]|fun():NCFunc[]
----@field autocmds NCAutocmd[]|fun():NCAutocmd[]
+---@field keymaps NCKeymap[]|fun():NCKeymap[]|nil
+---@field commands NCCommand[]|fun():NCCommand[]|nil
+---@field funcs NCFunc[]|fun():NCFunc[]|nil
+---@field autocmds NCAutocmd[]|fun():NCAutocmd[]|nil
 ---@field defaults table|nil
 
 return {}
