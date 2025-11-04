@@ -1,4 +1,4 @@
---- EmmyLua type definitions for neoconfig.nvim
+--- EmmyLua type definitions for ConfigMap.nvim
 --- These are lightweight annotations to help editor completion.
 
 ---@class NCKeymapOpts
@@ -35,7 +35,7 @@
 ---@field group string|nil
 ---@field opts table|nil
 
----@class NeoConfig
+---@class ConfigMap
 ---@field keymaps? NCKeymap[]|fun():NCKeymap[]
 ---@field commands? NCCommand[]|fun():NCCommand[]
 ---@field funcs? NCFunc[]|fun():NCFunc[]

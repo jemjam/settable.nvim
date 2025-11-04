@@ -1,4 +1,4 @@
---- neoconfig.nvim — minimal implementation (Phase 2)
+--- ConfigMap.nvim — minimal implementation (Phase 2)
 --- Implements core helpers to create keymaps, commands, autocmds, and funcs
 
 local M = {}
@@ -6,7 +6,7 @@ local M = {}
 -- Notify when the plugin is loaded (non-fatal)
 pcall(function()
 	vim.schedule(function()
-		vim.notify("Neoconfig was loaded successfully")
+		vim.notify("ConfigMap was loaded successfully")
 	end)
 end)
 
@@ -34,7 +34,7 @@ local function apply_keymaps(list, defaults)
 	for _, item in ipairs(resolve_list(list)) do
 		-- require array form: { mode, lhs, rhs, opts }
 		if type(item) ~= "table" then
-			error("neoconfig: keymap entry must be a table in vim.keymap.set form: {mode, lhs, rhs, opts}")
+			error("ConfigMap: keymap entry must be a table in vim.keymap.set form: {mode, lhs, rhs, opts}")
 		end
 
 		local mode = item[1]
@@ -42,7 +42,7 @@ local function apply_keymaps(list, defaults)
 		local rhs = item[3]
 		local opts = item[4]
 		if not mode or not lhs or not rhs then
-			error("neoconfig: keymap entry requires mode, lhs and rhs (array form)")
+			error("ConfigMap: keymap entry requires mode, lhs and rhs (array form)")
 		end
 
 		local modes = type(mode) == "table" and mode or { mode }
@@ -57,7 +57,7 @@ local function apply_keymaps(list, defaults)
 		for _, m in ipairs(modes) do
 			local key = m .. "::" .. lhs
 			if seen[key] then
-				error("neoconfig: duplicate keymap for mode+lhs: " .. key)
+				error("ConfigMap: duplicate keymap for mode+lhs: " .. key)
 			end
 			seen[key] = true
 		end
@@ -71,21 +71,21 @@ local function apply_commands(list, defaults)
 	local seen = {}
 	for _, item in ipairs(resolve_list(list)) do
 		if type(item) ~= "table" then
-			error("neoconfig: command entry must be a table")
+			error("ConfigMap: command entry must be a table")
 		end
 		local name = item.name
 		if not name then
-			error("neoconfig: command entry requires 'name'")
+			error("ConfigMap: command entry requires 'name'")
 		end
 		if seen[name] then
-			error("neoconfig: duplicate command name: " .. name)
+			error("ConfigMap: duplicate command name: " .. name)
 		end
 		seen[name] = true
 
 		local opts = merge_opts(defaults, item.opts)
 		local handler = item.handler
 		if not handler then
-			error("neoconfig: command '" .. name .. "' requires a handler (string or function)")
+			error("ConfigMap: command '" .. name .. "' requires a handler (string or function)")
 		end
 
 		-- nvim_create_user_command accepts either a string (ex command) or a Lua function
@@ -104,14 +104,14 @@ end
 local function apply_autocmds(list, defaults)
 	for _, item in ipairs(resolve_list(list)) do
 		if type(item) ~= "table" then
-			error("neoconfig: autocmd entry must be a table")
+			error("ConfigMap: autocmd entry must be a table")
 		end
 		local events = item.events
 		if not events then
-			error("neoconfig: autocmd entry requires 'events'")
+			error("ConfigMap: autocmd entry requires 'events'")
 		end
 		if not item.callback and not item.command then
-			error("neoconfig: autocmd requires 'callback' or 'command'")
+			error("ConfigMap: autocmd requires 'callback' or 'command'")
 		end
 
 		local evts = type(events) == "table" and events or { events }
@@ -140,15 +140,15 @@ local function apply_funcs(list)
 	local seen = {}
 	for _, item in ipairs(resolve_list(list)) do
 		if type(item) ~= "table" then
-			error("neoconfig: func entry must be a table")
+			error("ConfigMap: func entry must be a table")
 		end
 		local name = item.name
 		local fn = item.fn
 		if not name or type(fn) ~= "function" then
-			error("neoconfig: funcs require 'name' and 'fn' (function)")
+			error("ConfigMap: funcs require 'name' and 'fn' (function)")
 		end
 		if seen[name] then
-			error("neoconfig: duplicate func name: " .. name)
+			error("ConfigMap: duplicate func name: " .. name)
 		end
 		seen[name] = true
 		-- no runtime exposure by design; validation is sufficient for now

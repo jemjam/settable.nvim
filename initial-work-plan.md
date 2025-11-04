@@ -1,8 +1,8 @@
-# neoconfig.nvim — Initial Work Plan
+# ConfigMap.nvim — Initial Work Plan
 
 ## Objective
 
-Provide a minimal, dependency-free Neovim Lua module (`neoconfig`) that makes it convenient to declare and create keymaps, user commands, functions, and autocmds from a static configuration table. The module should be tiny, predictable, and easy to use from lazy.nvim plugin specs.
+Provide a minimal, dependency-free Neovim Lua module (`ConfigMap`) that makes it convenient to declare and create keymaps, user commands, functions, and autocmds from a static configuration table. The module should be tiny, predictable, and easy to use from lazy.nvim plugin specs.
 
 ## Scope & Constraints
 
@@ -15,9 +15,9 @@ Provide a minimal, dependency-free Neovim Lua module (`neoconfig`) that makes it
 
 ## Deliverables (v0.1 Minimum Viable Product)
 
-- `lua/neoconfig/init.lua` — main module with `setup(opts)` and lightweight stubs for the apply helpers.
-- `lua/neoconfig/types.lua` — EmmyLua typedefs for editor completion.
-- `doc/neoconfig.txt` — standard Neovim help file with quick usage and Lazy.nvim snippet.
+- `lua/ConfigMap/init.lua` — main module with `setup(opts)` and lightweight stubs for the apply helpers.
+- `lua/ConfigMap/types.lua` — EmmyLua typedefs for editor completion.
+- `doc/ConfigMap.txt` — standard Neovim help file with quick usage and Lazy.nvim snippet.
 - `README.md` — short overview and example usage.
 - `initial-work-plan.md` — this file.
 
@@ -28,7 +28,7 @@ These should be small, well-commented, and intentionally conservative in scope.
 Phase 1 — Placeholders & Docs (this phase)
 - Create placeholder module with `setup` stub and TODOs for each helper.
 - Add EmmyLua types file with clear type definitions.
-- Add `doc/neoconfig.txt` help file containing synopsis and a Lazy.nvim example.
+- Add `doc/ConfigMap.txt` help file containing synopsis and a Lazy.nvim example.
 - Add short README with usage snippet.
 - Goal: land minimal files so other changes can be incremental and reviewable.
 
@@ -42,7 +42,7 @@ Phase 2 — Core Implementation
 - Goal: feature parity with the minimal behaviour described in the README.
 
 Phase 3 — Examples & Tests
-- Add example `lua` config files, and at least one integration example for `lazy.nvim` using `opts` + `config = function(_, opts) require('neoconfig').setup(opts) end`.
+- Add example `lua` config files, and at least one integration example for `lazy.nvim` using `opts` + `config = function(_, opts) require('ConfigMap').setup(opts) end`.
 - Add simple unit-style tests (e.g., using busted or plain `luassert` if available) to validate normalization and that correct Neovim APIs would be called. If repository policy prohibits adding test infra, include manual test instructions in the README.
 - Goal: provide reproducible examples and basic automated validation.
 
@@ -53,15 +53,15 @@ Phase 4 — Polish & Release
 
 ## File Map (initial)
 
-- `lua/neoconfig/init.lua` — implementation entrypoint + TODO stubs.
-- `lua/neoconfig/types.lua` — EmmyLua annotations.
-- `doc/neoconfig.txt` — Neovim help doc.
+- `lua/ConfigMap/init.lua` — implementation entrypoint + TODO stubs.
+- `lua/ConfigMap/types.lua` — EmmyLua annotations.
+- `doc/ConfigMap.txt` — Neovim help doc.
 - `README.md` — short usage guide and examples.
 - `initial-work-plan.md` — this file.
 
 ## API Sketch
 
-`require('neoconfig').setup(opts)`
+`require('ConfigMap').setup(opts)`
 - `opts` can be a table or a function returning a table.
 - Top-level keys in `opts`:
   - `keymaps` = array of Keymap entries
@@ -93,7 +93,7 @@ Notes: `funcs` are simply registered/validated at setup time; no global exposure
 
 - Manual test plan (quick):
   1. Use a local Neovim instance and a minimal `init.lua` requiring this module.
-  2. Provide `opts` via a `lazy.nvim`-style spec (preferred) or pass the same `opts` table to `require('neoconfig').setup(opts)` if used directly.
+  2. Provide `opts` via a `lazy.nvim`-style spec (preferred) or pass the same `opts` table to `require('ConfigMap').setup(opts)` if used directly.
   3. Verify mappings, commands, and autocmds exist using `:map`, `:command`, and `:au`.
 - Automated tests: add tests for `normalize_config` and helpers; mock Neovim APIs if necessary.
 

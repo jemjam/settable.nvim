@@ -1,15 +1,15 @@
-*neoconfig*
+*ConfigMap*
 
-neoconfig.nvim	Quick loader for keymaps, commands, functions, and autocmds
+ConfigMap.nvim	Quick loader for keymaps, commands, functions, and autocmds
 
 NAME
-	neoconfig - lightweight declarative loader for Neovim config items
+	ConfigMap - lightweight declarative loader for Neovim config items
 
 SYNOPSIS
-	Use `:lua require('neoconfig').setup(opts)` or call from your plugin manager's `config`.
+	Use `:lua require('ConfigMap').setup(opts)` or call from your plugin manager's `config`.
 
 DESCRIPTION
-	`neoconfig` accepts a single table (or a function that returns a table) and
+	`ConfigMap` accepts a single table (or a function that returns a table) and
 	creates keymaps, user commands, autocmds, and validates simple named Lua
 	functions. It's intentionally minimal and has no UI or external dependencies.
 
@@ -27,7 +27,7 @@ SETTING HOTKEYS
 	use the same array form as `vim.keymap.set`.
 	Example Lazy.nvim spec:
 		local spec = {
-		  'jemjam/neoconfig.nvim',
+		  'jemjam/ConfigMap.nvim',
 		  opts = {
 			defaults = { keymaps = { silent = true, noremap = true } },
 			keymaps = {
@@ -38,7 +38,7 @@ SETTING HOTKEYS
 			  { name = 'SayHello', handler = function() print('hello') end, opts = { desc = 'Say hello' } },
 			},
 		  },
-		  config = function(_, opts) require('neoconfig').setup(opts) end,
+		  config = function(_, opts) require('ConfigMap').setup(opts) end,
 		}
 
 	This is the recommended and preferred usage pattern; direct `require(...).setup()` calls
@@ -51,8 +51,8 @@ NOTES
 	  the provided definitions with Neovim.
 
 FILES
-	- Lua module: `lua/neoconfig/init.lua`
-	- Types (EmmyLua): `lua/neoconfig/types.lua`
+	- Lua module: `lua/ConfigMap/init.lua`
+	- Types (EmmyLua): `lua/ConfigMap/types.lua`
 
 SEE ALSO
 	See the project README for additional examples.

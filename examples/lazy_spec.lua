@@ -1,6 +1,6 @@
 -- Example Lazy.nvim spec showing recommended usage
 return {
-  'jemjam/neoconfig.nvim',
+  'jemjam/ConfigMap.nvim',
   opts = {
     defaults = { keymaps = { silent = true, noremap = true } },
     keymaps = {
@@ -8,11 +8,11 @@ return {
       { {'n','v'}, '<leader>p', ':Telescope live_grep<CR>', { desc = 'Live grep' } },
     },
     commands = {
-      { name = 'SayHello', handler = function() print('hello from neoconfig') end, opts = { desc = 'Say hello' } },
+      { name = 'SayHello', handler = function() print('hello from ConfigMap') end, opts = { desc = 'Say hello' } },
     },
     autocmds = {
       { events = 'BufWritePre', pattern = '*', callback = function() vim.lsp.buf.format() end, opts = { once = false } },
     },
   },
-  config = function(_, opts) require('neoconfig').setup(opts) end,
+  config = function(_, opts) require('ConfigMap').setup(opts) end,
 }

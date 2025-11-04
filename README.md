@@ -1,4 +1,4 @@
-# neoconfig.nvim
+# ConfigMap.nvim
 
 Tiny, dependency-free Neovim helper to declare and create keymaps, user
 commands, functions, and autocmds from a static Lua table.
@@ -10,7 +10,7 @@ Quick Lazy.nvim example:
 
 ```lua
 {
-  'jemjam/neoconfig.nvim',
+  'jemjam/ConfigMap.nvim',
   opts = {
     defaults = { keymaps = { silent = true, noremap = true } },
     keymaps = {
@@ -20,8 +20,8 @@ Quick Lazy.nvim example:
       { name = 'SayHello', handler = function() print('hello') end, opts = { desc = 'Say hello' } },
     },
   },
-  config = function(_, opts) require('neoconfig').setup(opts) end,
+  config = function(_, opts) require('ConfigMap').setup(opts) end,
 }
 ```
 
-See `doc/neoconfig.txt` for a short help doc.
+See `doc/ConfigMap.txt` for a short help doc.
