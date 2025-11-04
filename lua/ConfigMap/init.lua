@@ -69,9 +69,9 @@ local function apply_commands(list, defaults)
 		if type(item) ~= "table" then
 			error("ConfigMap: command entry must be a table")
 		end
-		local name = item.name
+		local name = item[1]
 		if not name then
-			error("ConfigMap: command entry requires 'name'")
+			error("ConfigMap: command entry requires first argument for 'name'")
 		end
 		if seen[name] then
 			error("ConfigMap: duplicate command name: " .. name)
@@ -79,7 +79,7 @@ local function apply_commands(list, defaults)
 		seen[name] = true
 
 		local opts = merge_opts(defaults, item.opts)
-		local handler = item.handler
+		local handler = item[2]
 		if not handler then
 			error("ConfigMap: command '" .. name .. "' requires a handler (string or function)")
 		end

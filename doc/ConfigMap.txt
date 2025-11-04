@@ -31,6 +31,7 @@ SETTING KEYMAPS                                     *ConfigMap-keymaps*
 
     Keymaps are configured as tables with positional lhs and rhs, and optional
     desc and mode fields. The mode defaults to "n" if not specified.
+        >lua
 
     Basic keymap:
             { '<leader>ff', ':Telescope find_files<CR>', desc = 'Find files' }
@@ -40,7 +41,7 @@ SETTING KEYMAPS                                     *ConfigMap-keymaps*
 
     Keymap without description:
             { '<leader>q', ':q<CR>' }
-
+<
 SETTING HOTKEYS
 	Always provide keymaps via the plugin-manager `opts = { ... }` table.
 	Example Lazy.nvim spec:

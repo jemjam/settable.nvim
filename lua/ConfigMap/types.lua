@@ -10,9 +10,9 @@
 ---@field mode string|string[]|nil
 
 ---@class NCCommand
----@field name string
----@field handler string|fun()
----@field opts table|nil
+---@field [1] string name -- user commands must be capitalized
+---@field [2] string|fun() -- Command to execute, or a fn
+---@field opts table|nil -- Additional opts to pass
 
 ---@class NCFunc
 ---@field name string
