@@ -1,10 +1,22 @@
 --- EmmyLua type definitions for neoconfig.nvim
 --- These are lightweight annotations to help editor completion.
 
+---@class NCKeymapOpts
+---@field remap boolean|nil
+---@field silent boolean|nil
+---@field expr boolean|nil
+---@field nowait boolean|nil
+---@field desc string|nil
+---@field buffer boolean|number|nil
+---@field replace_keycodes boolean|nil
+
 ---@class NCKeymap
 --- Keymap entries must be provided in the same form as `vim.keymap.set`:
 --- an array `{ mode, lhs, rhs, opts }`. `mode` may be a string or table.
----@field _array table
+---@field [1] string|string[] mode
+---@field [2] string lhs
+---@field [3] string|fun() rhs
+---@field [4] NCKeymapOpts|nil opts
 
 ---@class NCCommand
 ---@field name string
