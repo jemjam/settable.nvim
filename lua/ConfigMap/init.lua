@@ -3,13 +3,6 @@
 
 local M = {}
 
--- Notify when the plugin is loaded (non-fatal)
-pcall(function()
-	vim.schedule(function()
-		vim.notify("ConfigMap was loaded successfully")
-	end)
-end)
-
 local function resolve_list(list)
 	if type(list) == "function" then
 		return list() or {}

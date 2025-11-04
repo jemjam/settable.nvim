@@ -23,6 +23,8 @@ TOP-LEVEL FIELDS
 EXAMPLES
 
 SETTING KEYMAPS
+    For more information about key mapping, see `:h 40.1`
+
 	Keymaps are configured as tables with positional lhs and rhs, and optional
 	desc and mode fields. The mode defaults to "n" if not specified.
 
@@ -50,11 +52,7 @@ SETTING HOTKEYS
 			  { name = 'SayHello', handler = function() print('hello') end, opts = { desc = 'Say hello' } },
 			},
 		  },
-		  config = function(_, opts) require('ConfigMap').setup(opts) end,
 		}
-
-	This is the recommended and preferred usage pattern; direct `require(...).setup()` calls
-	are discouraged to avoid duplication of plugin manager configuration.
 
 NOTES
 	- `setup` accepts either a table or a function returning the table.

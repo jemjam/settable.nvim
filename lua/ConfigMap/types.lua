@@ -1,15 +1,6 @@
 --- EmmyLua type definitions for ConfigMap.nvim
 --- These are lightweight annotations to help editor completion.
 
----@class NCKeymapOpts
----@field remap boolean|nil
----@field silent boolean|nil
----@field expr boolean|nil
----@field nowait boolean|nil
----@field desc string|nil
----@field buffer boolean|number|nil
----@field replace_keycodes boolean|nil
-
 ---@class NCKeymap
 --- Keymap entries are provided as a table: {lhs, rhs, desc?, mode?}.
 --- `mode` may be a string or table, defaults to "n" if not specified.
