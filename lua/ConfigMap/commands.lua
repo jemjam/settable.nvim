@@ -2,7 +2,7 @@ local utils = require("ConfigMap.utils")
 
 local M = {}
 
-function M.apply_commands(list, defaults)
+function M.apply_commands(list)
 	local seen = {}
 	for _, item in ipairs(utils.resolve_list(list)) do
 		if type(item) ~= "table" then
@@ -17,7 +17,7 @@ function M.apply_commands(list, defaults)
 		end
 		seen[name] = true
 
-		local opts = utils.merge_opts(defaults, item.opts)
+		local opts = item.opts or {}
 		local handler = item[2]
 		if not handler then
 			error("ConfigMap: command '" .. name .. "' requires a handler (string or function)")

@@ -10,7 +10,7 @@ function M.ensure_augroup(name, clear)
 	return vim.api.nvim_create_augroup(name, { clear = (clear == true) })
 end
 
-function M.apply_autocmds(list, defaults)
+function M.apply_autocmds(list)
 	for _, item in ipairs(utils.resolve_list(list)) do
 		if type(item) ~= "table" then
 			error("ConfigMap: autocmd entry must be a table")
@@ -24,7 +24,7 @@ function M.apply_autocmds(list, defaults)
 		end
 
 		local evts = type(events) == "table" and events or { events }
-		local opts = utils.merge_opts(defaults, item.opts)
+		local opts = item.opts or {}
 
 		local group_id = nil
 		if item.group then

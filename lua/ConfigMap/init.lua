@@ -20,11 +20,10 @@ function M.setup(opts)
 	cfg.commands = cfg.commands or {}
 	cfg.autocmds = cfg.autocmds or {}
 	cfg.funcs = cfg.funcs or {}
-	cfg.defaults = cfg.defaults or {}
 
-	keymaps.apply_keymaps(cfg.keymaps, cfg.defaults.keymaps or {})
-	commands.apply_commands(cfg.commands, cfg.defaults.commands or {})
-	autocmds.apply_autocmds(cfg.autocmds, cfg.defaults.autocmds or {})
+	keymaps.apply_keymaps(cfg.keymaps)
+	commands.apply_commands(cfg.commands)
+	autocmds.apply_autocmds(cfg.autocmds)
 	funcs.apply_funcs(cfg.funcs)
 end
 

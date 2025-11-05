@@ -1,8 +1,10 @@
+local utils = require("ConfigMap.utils")
+
 local M = {}
 
 function M.apply_funcs(list)
 	local seen = {}
-	for _, item in ipairs(list) do
+	for _, item in ipairs(utils.resolve_list(list)) do
 		if type(item) ~= "table" then
 			error("ConfigMap: func entry must be a table")
 		end

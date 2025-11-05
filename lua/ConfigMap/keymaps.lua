@@ -2,7 +2,7 @@ local utils = require("ConfigMap.utils")
 
 local M = {}
 
-function M.apply_keymaps(list, defaults)
+function M.apply_keymaps(list)
 	local seen = {}
 	for _, item in ipairs(utils.resolve_list(list)) do
 		if type(item) ~= "table" then
@@ -22,11 +22,10 @@ function M.apply_keymaps(list, defaults)
 		if desc then
 			opts.desc = desc
 		end
-		local merged_opts = utils.merge_opts(defaults, opts)
 
 		-- normalize buffer boolean -> 0 (current buffer)
-		if merged_opts.buffer == true then
-			merged_opts.buffer = 0
+		if opts.buffer == true then
+			opts.buffer = 0
 		end
 
 		-- duplicate detection per-mode
@@ -39,7 +38,7 @@ function M.apply_keymaps(list, defaults)
 		end
 
 		-- use vim.keymap.set which accepts string or table of modes
-		vim.keymap.set(modes, lhs, rhs, merged_opts)
+		vim.keymap.set(modes, lhs, rhs, opts)
 	end
 end
 
