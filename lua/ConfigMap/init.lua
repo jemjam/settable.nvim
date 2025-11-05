@@ -6,7 +6,6 @@ local M = {}
 local keymaps = require("ConfigMap.keymaps")
 local commands = require("ConfigMap.commands")
 local autocmds = require("ConfigMap.autocmds")
-local funcs = require("ConfigMap.funcs")
 
 function M.setup(opts)
 	local cfg = opts
@@ -19,12 +18,10 @@ function M.setup(opts)
 	cfg.keymaps = cfg.keymaps or {}
 	cfg.commands = cfg.commands or {}
 	cfg.autocmds = cfg.autocmds or {}
-	cfg.funcs = cfg.funcs or {}
 
 	keymaps.apply_keymaps(cfg.keymaps)
 	commands.apply_commands(cfg.commands)
 	autocmds.apply_autocmds(cfg.autocmds)
-	funcs.apply_funcs(cfg.funcs)
 end
 
 return M

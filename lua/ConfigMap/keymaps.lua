@@ -9,19 +9,19 @@ function M.apply_keymaps(list)
 			error("ConfigMap: keymap entry must be a table: {lhs, rhs, desc?, mode?}")
 		end
 
-		local lhs = item[1]
-		local rhs = item[2]
-		local desc = item.desc
-		local mode = item.mode or "n"
+		local args, opts = utils.splitTableProperties(item)
+		local lhs = args[1]
+		local rhs = args[2]
 		if not lhs or not rhs then
 			error("ConfigMap: keymap entry requires lhs and rhs as first two elements")
 		end
 
-		local modes = type(mode) == "table" and mode or { mode }
-		local opts = {}
-		if desc then
-			opts.desc = desc
+		local mode = "n"
+		if opts.mode ~= nil then
+			mode = opts.mode
+			opts.mode = nil
 		end
+		local modes = type(mode) == "table" and mode or { mode }
 
 		-- normalize buffer boolean -> 0 (current buffer)
 		if opts.buffer == true then

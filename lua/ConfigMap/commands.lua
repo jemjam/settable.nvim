@@ -8,21 +8,22 @@ function M.apply_commands(list)
 		if type(item) ~= "table" then
 			error("ConfigMap: command entry must be a table")
 		end
-		local name = item[1]
+
+		local args, opts = utils.splitTableProperties(item)
+		local name = args[1]
 		if not name then
 			error("ConfigMap: command entry requires first argument for 'name'")
 		end
+		local handler = args[2]
+		if not handler then
+			error("ConfigMap: command '" .. name .. "' requires a handler (string or function)")
+		end
+
 		name = name:gsub("^:", "")
 		if seen[name] then
 			error("ConfigMap: duplicate command name: " .. name)
 		end
 		seen[name] = true
-
-		local opts = item.opts or {}
-		local handler = item[2]
-		if not handler then
-			error("ConfigMap: command '" .. name .. "' requires a handler (string or function)")
-		end
 
 		-- nvim_create_user_command accepts either a string (ex command) or a Lua function
 		vim.api.nvim_create_user_command(name, handler, opts)

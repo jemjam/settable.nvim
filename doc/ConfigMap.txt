@@ -4,7 +4,7 @@
 
 *ConfigMap*
 
-ConfigMap.nvim	Quick loader for keymaps, commands, functions, and autocmds
+ConfigMap.nvim	Quick loader for keymaps, commands, and autocmds
 
 NAME
 	ConfigMap - lightweight declarative loader for Neovim config items
@@ -15,16 +15,13 @@ SYNOPSIS
 
 DESCRIPTION
         `ConfigMap` accepts a single table (or a function that returns a
-        table) and creates keymaps, user commands, autocmds, and validates
-        simple named Lua functions. It's intentionally minimal and has no UI
-        or external dependencies.
+        table) and creates keymaps, user commands, and autocmds. It's
+        intentionally minimal and has no UI or external dependencies.
 
 TOP-LEVEL FIELDS
 	- `keymaps`  : list of keymap entries (see examples)
 	- `commands` : list of user command entries
-	- `funcs`    : list of named Lua functions (validated at setup)
-	- `autocmds` : list of autocmd definitions
-	- `defaults` : per-kind defaults merged into each item (optional)
+	- `autocmds` : list of autocmd definitions (currently untested)
 
 EXAMPLES
 
@@ -47,7 +44,7 @@ SETTING KEYMAPS                                         *ConfigMap-keymaps*
 
     Keymap without description:
         { '<leader>q', ':q<CR>' }
-<
+
 SETTING HOTKEYS
 	Always provide keymaps via the plugin-manager `opts = { ... }` table.
 	Example Lazy.nvim spec:
@@ -60,7 +57,7 @@ SETTING HOTKEYS
 			  { '<leader>p', ':Telescope live_grep<CR>', desc = 'Live grep', mode = {'n','v'} },
 			},
 			commands = {
-			  { name = 'SayHello', handler = function() print('hello') end, opts = { desc = 'Say hello' } },
+			  { ':SayHello', function() vim.notify('hello') end, opts = { desc = 'Say hello' } },
 			},
 		  },
 		}
@@ -68,8 +65,6 @@ SETTING HOTKEYS
 NOTES
 	- `setup` accepts either a table or a function returning the table.
 	- Duplicate keymaps (same mode + lhs) or duplicate command/func names will raise an error.
-	- This module does not expose functions globally — it only validates and registers
-	  the provided definitions with Neovim.
 
 FILES
 	- Lua module: `lua/ConfigMap/init.lua`

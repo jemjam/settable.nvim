@@ -48,26 +48,6 @@
 ---@field custom_args boolean? - For using <f-args> to pass command arguments to function.
 ---@field custom_quoting boolean? - For using <q-args> to handle quoted arguments.
 
----@type UserCommandOpts
-local something = {
-	"potato",
-	function()
-		vim.notify("potatoes!")
-	end,
-	1,
-	mode = {},
-	stuff = {},
-}
-
----@class NCCommand
----@field [1] string name -- user commands must be capitalized
----@field [2] string|fun(args: UserCommandFnArgs) -- Command to execute, or a fn
----@field opts table|nil -- Additional opts to pass
-
----@class NCFunc
----@field name string
----@field fn fun()
-
 ---@class NCAutocmd
 ---@field events string|string[]
 ---@field pattern string|string[]|nil
@@ -78,9 +58,7 @@ local something = {
 
 ---@class ConfigMap
 ---@field keymaps? KeymapOpts[]|fun():KeymapOpts[]
----@field commands? NCCommand[]|fun():NCCommand[]
----@field funcs? NCFunc[]|fun():NCFunc[]
+---@field commands? UserCommandOpts[]|fun():UserCommandOpts[]
 ---@field autocmds? NCAutocmd[]|fun():NCAutocmd[]
----@field defaults? table
 
 return {}
