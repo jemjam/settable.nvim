@@ -1,1 +1,3 @@
 ConfigMap	ConfigMap.txt	/*ConfigMap*
+ConfigMap-keymaps	ConfigMap.txt	/*ConfigMap-keymaps*
+ConfigMap.txt	ConfigMap.txt	/*ConfigMap.txt*

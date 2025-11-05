@@ -1,4 +1,6 @@
-	*ConfigMap.txt*	{Helper for loading user commands, keymaps, etc}
+*ConfigMap.nvim*	Simple helper for loading user commands, keymaps, etc
+
+=============================================================================
 
 *ConfigMap*
 
@@ -26,21 +28,25 @@ TOP-LEVEL FIELDS
 
 EXAMPLES
 
-SETTING KEYMAPS                                     *ConfigMap-keymaps*
+SETTING KEYMAPS                                         *ConfigMap-keymaps*
     For more information about key mapping, see |usr_40.txt| and |40.1|.
 
-    Keymaps are configured as tables with positional lhs and rhs, and optional
-    desc and mode fields. The mode defaults to "n" if not specified.
-        >lua
-
+    Keymaps are configured as tables with positional lhs and rhs. You can also
+    include desc and mode fields. The mode defaults to "n" if not specified.
+>lua
     Basic keymap:
-            { '<leader>ff', ':Telescope find_files<CR>', desc = 'Find files' }
+        { '<leader>ff', ':Telescope find_files<CR>', desc = 'Find files' }
 
     Keymap with multiple modes:
-            { '<leader>p', ':Telescope live_grep<CR>', desc = 'Live grep', mode = {'n','v'} }
+        { 
+            '<leader>p', 
+            ':Telescope live_grep<CR>', 
+            desc = 'Live grep', 
+            mode = {'n','v'} 
+        }
 
     Keymap without description:
-            { '<leader>q', ':q<CR>' }
+        { '<leader>q', ':q<CR>' }
 <
 SETTING HOTKEYS
 	Always provide keymaps via the plugin-manager `opts = { ... }` table.
