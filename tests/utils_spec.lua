@@ -1,4 +1,4 @@
-local utils = require("ConfigMap.utils")
+local utils = require("settable.utils")
 
 describe("utils", function()
 	describe("splitTableProperties", function()

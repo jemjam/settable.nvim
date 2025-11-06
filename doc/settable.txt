@@ -1,20 +1,20 @@
-*ConfigMap.nvim*	Simple helper for loading user commands, keymaps, etc
+*settable.nvim*	Simple helper for loading user commands, keymaps, etc
 
 =============================================================================
 
-*ConfigMap*
+*settable*
 
-ConfigMap.nvim	Quick loader for keymaps, commands, and autocmds
+settable.nvim	Quick loader for keymaps, commands, and autocmds
 
 NAME
-	ConfigMap - lightweight declarative loader for Neovim config items
+	settable - lightweight declarative loader for Neovim config items
 
 SYNOPSIS
-        Use `:lua require('ConfigMap').setup(opts)` or call from your plugin
+        Use `:lua require('settable').setup(opts)` or call from your plugin
         manager's `config`.
 
 DESCRIPTION
-        `ConfigMap` accepts a single table (or a function that returns a
+        `settable` accepts a single table (or a function that returns a
         table) and creates keymaps, user commands, and autocmds. It's
         intentionally minimal and has no UI or external dependencies.
 
@@ -25,7 +25,7 @@ TOP-LEVEL FIELDS
 
 EXAMPLES
 
-SETTING KEYMAPS                                         *ConfigMap-keymaps*
+SETTING KEYMAPS                                         *settable-keymaps*
     For more information about key mapping, see |usr_40.txt| and |40.1|.
 
     Keymaps are configured as tables with positional lhs and rhs. You can also
@@ -49,7 +49,7 @@ SETTING HOTKEYS
 	Always provide keymaps via the plugin-manager `opts = { ... }` table.
 	Example Lazy.nvim spec:
 		local spec = {
-		  'jemjam/ConfigMap.nvim',
+		  'jemjam/settable.nvim',
 		  opts = {
 			defaults = { keymaps = { silent = true, noremap = true } },
 			keymaps = {
@@ -67,8 +67,8 @@ NOTES
 	- Duplicate keymaps (same mode + lhs) or duplicate command/func names will raise an error.
 
 FILES
-	- Lua module: `lua/ConfigMap/init.lua`
-	- Types (EmmyLua): `lua/ConfigMap/types.lua`
+	- Lua module: `lua/settable/init.lua`
+	- Types (EmmyLua): `lua/settable/types.lua`
 
 SEE ALSO
 	See the project README for additional examples.

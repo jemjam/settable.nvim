@@ -1,4 +1,4 @@
-local utils = require("ConfigMap.utils")
+local utils = require("settable.utils")
 
 local M = {}
 
@@ -13,14 +13,14 @@ end
 function M.apply_autocmds(list)
 	for _, item in ipairs(utils.resolve_list(list)) do
 		if type(item) ~= "table" then
-			error("ConfigMap: autocmd entry must be a table")
+			error("settable: autocmd entry must be a table")
 		end
 		local events = item.events
 		if not events then
-			error("ConfigMap: autocmd entry requires 'events'")
+			error("settable: autocmd entry requires 'events'")
 		end
 		if not item.callback and not item.command then
-			error("ConfigMap: autocmd requires 'callback' or 'command'")
+			error("settable: autocmd requires 'callback' or 'command'")
 		end
 
 		local evts = type(events) == "table" and events or { events }

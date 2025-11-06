@@ -1,11 +1,11 @@
---- ConfigMap.nvim — minimal implementation (Phase 2)
+--- settable.nvim — minimal implementation (Phase 2)
 --- Implements core helpers to create keymaps, commands, autocmds, and funcs
 
 local M = {}
 
-local keymaps = require("ConfigMap.keymaps")
-local commands = require("ConfigMap.commands")
-local autocmds = require("ConfigMap.autocmds")
+local keymaps = require("settable.keymaps")
+local commands = require("settable.commands")
+local autocmds = require("settable.autocmds")
 
 function M.setup(opts)
 	local cfg = opts

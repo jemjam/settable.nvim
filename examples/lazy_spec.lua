@@ -1,8 +1,8 @@
 -- Example Lazy.nvim spec showing recommended usage
 return {
-	"jemjam/ConfigMap.nvim",
-	---@module 'ConfigMap'
-	---@type ConfigMap
+	"jemjam/settable.nvim",
+	---@module 'settable'
+	---@type settable
 	opts = {
 		keymaps = {
 			{ "<leader>ff", ":Telescope find_files<CR>", desc = "Find files" },
@@ -12,7 +12,7 @@ return {
 			{
 				"SayHello",
 				function()
-					print("hello from ConfigMap")
+					print("hello from settable")
 				end,
 				opts = { desc = "Say hello" },
 			},

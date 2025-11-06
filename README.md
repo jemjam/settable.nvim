@@ -1,4 +1,4 @@
-# ConfigMap.nvim
+# settable.nvim
 
 Tiny, dependency-free Neovim helper to declare and create keymaps, user
 commands, and autocmds from a static Lua table.
@@ -10,9 +10,9 @@ Quick Lazy.nvim example:
 
 ```lua
 {
-  'jemjam/ConfigMap.nvim',
-  ---@module 'ConfigMap'
-  ---@type ConfigMap
+  'jemjam/settable.nvim',
+  ---@module 'settable'
+  ---@type settable
   opts = {
     keymaps = {
       { '<leader>ff', ':Telescope find_files<CR>', desc = 'Find files' },
@@ -24,4 +24,4 @@ Quick Lazy.nvim example:
 }
 ```
 
-See `doc/ConfigMap.txt` for a short help doc.
+See `doc/settable.txt` for a short help doc.

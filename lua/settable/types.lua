@@ -1,4 +1,4 @@
---- EmmyLua type definitions for ConfigMap.nvim
+--- EmmyLua type definitions for settable.nvim
 --- These are lightweight annotations to help editor completion.
 
 ---@class KeymapOpts See the `opts` used: "h vim.keymap.set()"
@@ -56,7 +56,7 @@
 ---@field group string|nil
 ---@field opts table|nil
 
----@class ConfigMap
+---@class settable
 ---@field keymaps? KeymapOpts[]|fun():KeymapOpts[]
 ---@field commands? UserCommandOpts[]|fun():UserCommandOpts[]
 ---@field autocmds? NCAutocmd[]|fun():NCAutocmd[]

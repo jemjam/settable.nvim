@@ -1,4 +1,4 @@
-local utils = require("ConfigMap.utils")
+local utils = require("settable.utils")
 
 local M = {}
 
@@ -6,14 +6,14 @@ function M.apply_keymaps(list)
 	local seen = {}
 	for _, item in ipairs(utils.resolve_list(list)) do
 		if type(item) ~= "table" then
-			error("ConfigMap: keymap entry must be a table: {lhs, rhs, desc?, mode?}")
+			error("settable: keymap entry must be a table: {lhs, rhs, desc?, mode?}")
 		end
 
 		local args, opts = utils.splitTableProperties(item)
 		local lhs = args[1]
 		local rhs = args[2]
 		if not lhs or not rhs then
-			error("ConfigMap: keymap entry requires lhs and rhs as first two elements")
+			error("settable: keymap entry requires lhs and rhs as first two elements")
 		end
 
 		local mode = "n"
@@ -32,7 +32,7 @@ function M.apply_keymaps(list)
 		for _, m in ipairs(modes) do
 			local key = m .. "::" .. lhs
 			if seen[key] then
-				error("ConfigMap: duplicate keymap for mode+lhs: " .. key)
+				error("settable: duplicate keymap for mode+lhs: " .. key)
 			end
 			seen[key] = true
 		end
