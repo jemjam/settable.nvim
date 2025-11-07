@@ -1,3 +1,23 @@
 [tasks.test]
-description = "Run the unit tests"
+description = "Run all tests"
 run = 'nvim --headless -c "PlenaryBustedDirectory tests/" -c "qa"'
+
+[tasks.test-keymaps]
+description = "Run keymaps tests"
+run = 'nvim --headless -c "PlenaryBustedFile tests/keymaps_spec.lua" -c "qa"'
+
+[tasks.test-utils]
+description = "Run utils tests"
+run = 'nvim --headless -c "PlenaryBustedFile tests/utils_spec.lua" -c "qa"'
+
+[tasks.test-commands]
+description = "Run commands tests"
+run = 'nvim --headless -c "PlenaryBustedFile tests/commands_spec.lua" -c "qa"'
+
+[tasks.test-autocmds]
+description = "Run autocmds tests"
+run = 'nvim --headless -c "PlenaryBustedFile tests/autocmds_spec.lua" -c "qa"'
+
+[tasks.test-init]
+description = "Run init tests"
+run = 'nvim --headless -c "PlenaryBustedFile tests/init_spec.lua" -c "qa"'
