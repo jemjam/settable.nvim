@@ -1,28 +1,44 @@
 local autocmds = require("settable.autocmds")
 local stub = require("luassert.stub")
 
+-- Test constants
+local TEST_GROUP_ID = 12345
+local TEST_ALT_GROUP_ID = 67890
+local TEST_BUFFER_ID = 42
+
 describe("autocmds", function()
+	local teardown
+
+	before_each(function()
+		teardown = {}
+	end)
+
+	after_each(function()
+		for _, stub_fn in ipairs(teardown) do
+			stub_fn:revert()
+		end
+		teardown = {}
+	end)
+
 	describe("ensure_augroup", function()
 		it("should create augroup with clear option", function()
-			stub(vim.api, "nvim_create_augroup").returns(12345)
+			local augroup_stub = stub(vim.api, "nvim_create_augroup").returns(TEST_GROUP_ID)
+			table.insert(teardown, augroup_stub)
 
 			local group_id = autocmds.ensure_augroup("TestGroup", true)
 
-			assert.stub(vim.api.nvim_create_augroup).was_called_with("TestGroup", { clear = true })
-			assert.are.equal(group_id, 12345)
-
-			vim.api.nvim_create_augroup:revert()
+			assert.stub(augroup_stub).was_called_with("TestGroup", { clear = true })
+			assert.are.equal(group_id, TEST_GROUP_ID)
 		end)
 
 		it("should create augroup without clear option", function()
-			stub(vim.api, "nvim_create_augroup").returns(67890)
+			local augroup_stub = stub(vim.api, "nvim_create_augroup").returns(TEST_ALT_GROUP_ID)
+			table.insert(teardown, augroup_stub)
 
 			local group_id = autocmds.ensure_augroup("TestGroup", false)
 
-			assert.stub(vim.api.nvim_create_augroup).was_called_with("TestGroup", { clear = false })
-			assert.are.equal(group_id, 67890)
-
-			vim.api.nvim_create_augroup:revert()
+			assert.stub(augroup_stub).was_called_with("TestGroup", { clear = false })
+			assert.are.equal(group_id, TEST_ALT_GROUP_ID)
 		end)
 
 		it("should return nil when name is nil", function()
@@ -41,11 +57,12 @@ describe("autocmds", function()
 				},
 			}
 
-			stub(vim.api, "nvim_create_autocmd")
+			local autocmd_stub = stub(vim.api, "nvim_create_autocmd")
+			table.insert(teardown, autocmd_stub)
 
 			autocmds.apply_autocmds(test_autocmds)
 
-			assert.stub(vim.api.nvim_create_autocmd).was_called_with(
+			assert.stub(autocmd_stub).was_called_with(
 				{ "BufWrite" },
 				{
 					pattern = "*",
@@ -57,8 +74,6 @@ describe("autocmds", function()
 					buffer = nil,
 				}
 			)
-
-			vim.api.nvim_create_autocmd:revert()
 		end)
 
 		it("should create autocmd with command string", function()
@@ -159,17 +174,19 @@ describe("autocmds", function()
 				},
 			}
 
-			stub(vim.api, "nvim_create_autocmd")
-			stub(vim.api, "nvim_create_augroup").returns(12345)
+			local autocmd_stub = stub(vim.api, "nvim_create_autocmd")
+			local augroup_stub = stub(vim.api, "nvim_create_augroup").returns(TEST_GROUP_ID)
+			table.insert(teardown, autocmd_stub)
+			table.insert(teardown, augroup_stub)
 
 			autocmds.apply_autocmds(test_autocmds)
 
-			assert.stub(vim.api.nvim_create_augroup).was_called_with("TestGroup", { clear = false })
-			assert.stub(vim.api.nvim_create_autocmd).was_called_with(
+			assert.stub(augroup_stub).was_called_with("TestGroup", { clear = false })
+			assert.stub(autocmd_stub).was_called_with(
 				{ "BufEnter" },
 				{
 					pattern = "*",
-					group = 12345,
+					group = TEST_GROUP_ID,
 					callback = test_autocmds[1].callback,
 					command = nil,
 					once = nil,
@@ -177,26 +194,24 @@ describe("autocmds", function()
 					buffer = nil,
 				}
 			)
-
-			vim.api.nvim_create_autocmd:revert()
-			vim.api.nvim_create_augroup:revert()
 		end)
 
-		it("should handle buffer-specific autocmds", function()
+it("should handle buffer-specific autocmds", function()
 			local test_autocmds = {
 				{
 					events = "BufWrite",
 					callback = function() print("buffer specific") end,
-					opts = { buffer = 42 },
+					opts = { buffer = TEST_BUFFER_ID },
 					desc = "buffer autocmd",
 				},
 			}
 
-			stub(vim.api, "nvim_create_autocmd")
+			local autocmd_stub = stub(vim.api, "nvim_create_autocmd")
+			table.insert(teardown, autocmd_stub)
 
 			autocmds.apply_autocmds(test_autocmds)
 
-			assert.stub(vim.api.nvim_create_autocmd).was_called_with(
+			assert.stub(autocmd_stub).was_called_with(
 				{ "BufWrite" },
 				{
 					pattern = "*",
@@ -205,11 +220,9 @@ describe("autocmds", function()
 					command = nil,
 					once = nil,
 					nested = nil,
-					buffer = 42,
+					buffer = TEST_BUFFER_ID,
 				}
 			)
-
-			vim.api.nvim_create_autocmd:revert()
 		end)
 
 		it("should handle once and nested options", function()
@@ -278,7 +291,7 @@ describe("autocmds", function()
 			end, "settable: autocmd entry must be a table")
 		end)
 
-		it("should handle function-based autocmd list", function()
+		it("should handle function-based autocmds", function()
 			local autocmd_func = function()
 				return {
 					{

@@ -2,23 +2,35 @@ local commands = require("settable.commands")
 local stub = require("luassert.stub")
 
 describe("commands", function()
+	local teardown
+
+	before_each(function()
+		teardown = {}
+	end)
+
+	after_each(function()
+		for _, stub_fn in ipairs(teardown) do
+			stub_fn:revert()
+		end
+		teardown = {}
+	end)
+
 	describe("apply_commands", function()
 		it("should create basic command with string handler", function()
 			local test_commands = {
 				{ "TestCommand", "echo 'test'", desc = "test command" },
 			}
 
-			stub(vim.api, "nvim_create_user_command")
+			local command_stub = stub(vim.api, "nvim_create_user_command")
+			table.insert(teardown, command_stub)
 
 			commands.apply_commands(test_commands)
 
-			assert.stub(vim.api.nvim_create_user_command).was_called_with(
+			assert.stub(command_stub).was_called_with(
 				"TestCommand",
 				"echo 'test'",
 				{ desc = "test command" }
 			)
-
-			vim.api.nvim_create_user_command:revert()
 		end)
 
 		it("should create command with function handler", function()
@@ -103,7 +115,7 @@ describe("commands", function()
 
 			assert.has_error(function()
 				commands.apply_commands(test_commands)
-			end)
+			end, "settable: command 'echo 'test'' requires a handler (string or function)")
 		end)
 
 		it("should error when command handler is missing", function()
@@ -116,7 +128,7 @@ describe("commands", function()
 			end, "settable: command 'MissingHandler' requires a handler (string or function)")
 		end)
 
-		it("should handle function-based command list", function()
+		it("should handle function-based commands", function()
 			local command_func = function()
 				return { { "FuncCmd", "echo 'func'", desc = "function command" } }
 			end
